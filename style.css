@@ -9,9 +9,7 @@
 
 html, body {
   height: 100%;
-  overflow: hidden;   /* 防止页面滚动 */
-  touch-action: none;  /* 防止移动端双指缩放/下拉刷新 */
-  -webkit-overflow-scrolling: auto;
+  overflow: hidden;
   overscroll-behavior: none;
 }
 
@@ -23,10 +21,10 @@ body {
   justify-content: center;
   align-items: center;
   min-height: 100vh;
-  min-height: 100dvh;  /* 移动端动态视口高度 */
+  min-height: 100dvh;
   margin: 0;
   padding: 20px;
-  -webkit-text-size-adjust: 100%; /* 防止移动端自动调整字体 */
+  -webkit-text-size-adjust: 100%;
 }
 
 .hidden {
@@ -173,6 +171,7 @@ body {
   background: #bbada0;
   border-radius: 8px;
   padding: 2%;
+  touch-action: none;  /* 防止游戏区域内滑动干扰 */
 }
 
 .grid-background {
@@ -396,8 +395,14 @@ body {
 
 /* 手机横屏 / 大屏手机 */
 @media (max-width: 520px) {
+  html, body {
+    overflow: hidden auto;  /* 允许垂直滚动 */
+  }
+
   body {
     padding: 10px;
+    align-items: flex-start;  /* 从顶部排列，不居中 */
+    padding-top: 12px;
   }
 
   .title {
