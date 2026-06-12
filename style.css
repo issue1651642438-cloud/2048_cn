@@ -1,5 +1,5 @@
 /* ===================================================
-   2048 小游戏 — 完整样式
+   2048 — 完整样式
    =================================================== */
 *, *::before, *::after {
   box-sizing: border-box;
@@ -9,8 +9,8 @@
 
 html, body {
   height: 100%;
-  overflow: hidden;
-  touch-action: none;
+  overflow: hidden;   /* 防止页面滚动 */
+  touch-action: none;  /* 防止移动端双指缩放/下拉刷新 */
   -webkit-overflow-scrolling: auto;
   overscroll-behavior: none;
 }
@@ -23,10 +23,10 @@ body {
   justify-content: center;
   align-items: center;
   min-height: 100vh;
-  min-height: 100dvh;
+  min-height: 100dvh;  /* 移动端动态视口高度 */
   margin: 0;
   padding: 20px;
-  -webkit-text-size-adjust: 100%;
+  -webkit-text-size-adjust: 100%; /* 防止移动端自动调整字体 */
 }
 
 .hidden {
@@ -213,7 +213,7 @@ body {
   z-index: 1;
 }
 
-/* 方块消失动画 */
+/* 方块消失动画（合并时被吃掉的方块） */
 .tile-vanish {
   animation: tile-vanish 0.12s ease forwards;
 }
@@ -386,12 +386,15 @@ body {
 /* ===================================================
    响应式设计
    =================================================== */
+
+/* 中等屏幕（平板、大屏手机） */
 @media (max-width: 768px) {
   .game-container {
     max-width: 100%;
   }
 }
 
+/* 手机横屏 / 大屏手机 */
 @media (max-width: 520px) {
   body {
     padding: 10px;
@@ -438,6 +441,7 @@ body {
   }
 }
 
+/* 主流手机竖屏 (375px ~ 430px) */
 @media (max-width: 430px) {
   body {
     padding: 8px;
@@ -462,6 +466,7 @@ body {
   }
 }
 
+/* 小屏手机 (< 375px) */
 @media (max-width: 374px) {
   body {
     padding: 6px;
