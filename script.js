@@ -134,6 +134,9 @@ let bgMusicPlaying = false;
 
 function initAudio() {
   SoundFX.init();
+}
+
+function startBgMusic() {
   if (bgMusicPlaying) return;
   bgMusicPlaying = true;
   bgMusic.play().catch(() => {});
@@ -143,7 +146,15 @@ function initAudio() {
 }
 
 function toggleMusic() {
-  if (bgMusic.paused) {
+  SoundFX.init();
+
+  if (!bgMusicPlaying) {
+    bgMusicPlaying = true;
+    bgMusic.play().catch(() => {});
+    musicBtn.textContent = '🔊 背景音乐';
+    musicBtn.classList.remove('music-off');
+    musicBtn.classList.add('music-on');
+  } else if (bgMusic.paused) {
     bgMusic.play().catch(() => {});
     musicBtn.textContent = '🔊 背景音乐';
     musicBtn.classList.remove('music-off');
@@ -156,8 +167,13 @@ function toggleMusic() {
   }
 }
 
-document.addEventListener('click', initAudio, { once: true });
-document.addEventListener('keydown', initAudio, { once: true });
+function firstGameInteraction() {
+  startBgMusic();
+  document.removeEventListener('keydown', firstGameInteraction);
+  document.removeEventListener('touchstart', firstGameInteraction);
+}
+document.addEventListener('keydown', firstGameInteraction);
+document.addEventListener('touchstart', firstGameInteraction);
 
 // =========================================================
 // 5. Toast 提示
