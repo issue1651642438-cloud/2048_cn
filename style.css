@@ -1,0 +1,460 @@
+/* ===================================================
+   2048 小游戏 — 完整样式
+   =================================================== */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html, body {
+  height: 100%;
+  overflow: hidden;
+  touch-action: none;
+  -webkit-overflow-scrolling: auto;
+  overscroll-behavior: none;
+}
+
+body {
+  font-family: 'Segoe UI', 'Clear Sans', 'Helvetica Neue', Arial, sans-serif;
+  background: #faf8ef;
+  color: #776e65;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  min-height: 100dvh;
+  margin: 0;
+  padding: 20px;
+  -webkit-text-size-adjust: 100%;
+}
+
+.hidden {
+  display: none !important;
+}
+
+/* ===================================================
+   游戏区域样式
+   =================================================== */
+.container {
+  width: 100%;
+  max-width: 520px;
+  margin: 0 auto;
+}
+
+/* 标题行 */
+.heading {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 12px;
+}
+
+.title {
+  font-size: 64px;
+  font-weight: 800;
+  color: #776e65;
+  line-height: 1;
+}
+
+.scores-container {
+  display: flex;
+  gap: 6px;
+}
+
+.score-box {
+  background: #bbada0;
+  border-radius: 6px;
+  padding: 8px 20px;
+  text-align: center;
+  min-width: 80px;
+}
+
+.score-label {
+  font-size: 11px;
+  text-transform: uppercase;
+  color: #eee4da;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+}
+
+.score-value {
+  font-size: 22px;
+  font-weight: 700;
+  color: #fff;
+  line-height: 1.2;
+}
+
+/* 副标题行 */
+.subheading {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.controls {
+  display: flex;
+  gap: 6px;
+}
+
+.game-btn {
+  padding: 8px 18px;
+  border: none;
+  border-radius: 6px;
+  background: #8f7a66;
+  color: #f9f6f2;
+  font-size: 14px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.game-btn:hover {
+  background: #9f8b77;
+}
+
+.game-btn:active {
+  background: #7a6658;
+}
+
+/* 音乐开关按钮 */
+.music-on {
+  background: #b0a090;
+}
+.music-on:active {
+  background: #8a7a6a;
+}
+.music-off {
+  background: #d0c8b8 !important;
+  opacity: 0.6;
+}
+
+/* 分享按钮 */
+.share-btn {
+  background: #b0a090;
+}
+.share-btn:active {
+  background: #8a7a6a;
+}
+
+/* 底部按钮栏 */
+.bottom-bar {
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+  margin-top: 12px;
+  width: 100%;
+  max-width: 500px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.bottom-btn {
+  flex: 1;
+  max-width: 200px;
+  padding: 12px 10px;
+  font-size: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+}
+
+/* ===================================================
+   游戏网格
+   =================================================== */
+.game-container {
+  position: relative;
+  width: 100%;
+  max-width: 500px;
+  aspect-ratio: 1 / 1;
+  margin: 0 auto;
+  background: #bbada0;
+  border-radius: 8px;
+  padding: 2%;
+}
+
+.grid-background {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 3%;
+  width: 100%;
+  height: 100%;
+}
+
+.grid-background .cell {
+  background: rgba(238, 228, 218, 0.35);
+  border-radius: 4px;
+}
+
+/* 方块容器 */
+.tile-container {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  padding: 2%;
+}
+
+/* ===================================================
+   单个方块 (Tile)
+   =================================================== */
+.tile {
+  position: absolute;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  border-radius: 4px;
+  transition: top 0.12s ease, left 0.12s ease;
+  user-select: none;
+  z-index: 1;
+}
+
+/* 方块消失动画 */
+.tile-vanish {
+  animation: tile-vanish 0.12s ease forwards;
+}
+
+@keyframes tile-vanish {
+  0%   { transform: scale(1); opacity: 1; }
+  100% { transform: scale(0); opacity: 0; }
+}
+
+/* 方块出现动画 */
+.tile-new {
+  animation: tile-pop-in 0.2s ease;
+}
+
+@keyframes tile-pop-in {
+  0%   { transform: scale(0); opacity: 0; }
+  50%  { transform: scale(1.1); }
+  100% { transform: scale(1); opacity: 1; }
+}
+
+/* 方块合并动画 */
+.tile-merged {
+  animation: tile-merge-pop 0.2s ease;
+}
+
+@keyframes tile-merge-pop {
+  0%   { transform: scale(1); }
+  40%  { transform: scale(1.2); }
+  100% { transform: scale(1); }
+}
+
+/* ===================================================
+   方块颜色
+   =================================================== */
+.tile-2    { background: #eee4da; color: #776e65; }
+.tile-4    { background: #ede0c8; color: #776e65; }
+.tile-8    { background: #f2b179; color: #f9f6f2; }
+.tile-16   { background: #f59563; color: #f9f6f2; }
+.tile-32   { background: #f67c5f; color: #f9f6f2; }
+.tile-64   { background: #f65e3b; color: #f9f6f2; }
+.tile-128  { background: #edcf72; color: #f9f6f2; font-size: 0.9em; }
+.tile-256  { background: #edcc61; color: #f9f6f2; font-size: 0.9em; }
+.tile-512  { background: #edc850; color: #f9f6f2; font-size: 0.9em; }
+.tile-1024 { background: #edc53f; color: #f9f6f2; font-size: 0.75em; }
+.tile-2048 { background: #edc22e; color: #f9f6f2; font-size: 0.75em; }
+.tile-super{ background: #3c3a32; color: #f9f6f2; font-size: 0.65em; }
+
+/* ===================================================
+   游戏结束 / 胜利遮罩
+   =================================================== */
+.game-over-overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(238, 228, 218, 0.73);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 8px;
+  z-index: 10;
+  animation: overlay-fade-in 0.5s ease;
+}
+
+@keyframes overlay-fade-in {
+  0%   { opacity: 0; }
+  100% { opacity: 1; }
+}
+
+.game-over-content {
+  text-align: center;
+}
+
+.game-over-content h2 {
+  font-size: 48px;
+  font-weight: 800;
+  color: #776e65;
+  margin-bottom: 8px;
+}
+
+.game-over-content p {
+  font-size: 20px;
+  color: #776e65;
+  margin-bottom: 20px;
+}
+
+.game-btn.large {
+  padding: 12px 40px;
+  font-size: 16px;
+}
+
+/* ===================================================
+   游戏说明
+   =================================================== */
+.game-instructions {
+  text-align: center;
+  font-size: 13px;
+  color: #999;
+  margin-top: 12px;
+}
+
+/* ===================================================
+   Toast 提示
+   =================================================== */
+.toast {
+  position: fixed;
+  bottom: 40px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: rgba(0, 0, 0, 0.75);
+  color: #fff;
+  padding: 14px 28px;
+  border-radius: 10px;
+  font-size: 15px;
+  font-weight: 600;
+  z-index: 999;
+  animation: toast-in 0.3s ease, toast-out 0.3s ease 1.7s forwards;
+  pointer-events: none;
+  white-space: nowrap;
+}
+
+@keyframes toast-in {
+  0%   { opacity: 0; transform: translateX(-50%) translateY(20px); }
+  100% { opacity: 1; transform: translateX(-50%) translateY(0); }
+}
+
+@keyframes toast-out {
+  0%   { opacity: 1; transform: translateX(-50%) translateY(0); }
+  100% { opacity: 0; transform: translateX(-50%) translateY(-20px); }
+}
+
+/* ===================================================
+   响应式设计
+   =================================================== */
+@media (max-width: 768px) {
+  .game-container {
+    max-width: 100%;
+  }
+}
+
+@media (max-width: 520px) {
+  body {
+    padding: 10px;
+  }
+
+  .title {
+    font-size: 44px;
+  }
+
+  .score-box {
+    padding: 6px 16px;
+    min-width: 68px;
+  }
+
+  .score-value {
+    font-size: 19px;
+  }
+
+  .score-label {
+    font-size: 10px;
+  }
+
+  .game-btn {
+    padding: 7px 14px;
+    font-size: 13px;
+  }
+
+  .game-over-content h2 {
+    font-size: 36px;
+  }
+
+  .game-btn.large {
+    padding: 10px 30px;
+    font-size: 14px;
+  }
+
+  .game-instructions {
+    font-size: 12px;
+  }
+
+  .bottom-btn {
+    padding: 12px 8px;
+    font-size: 13px;
+  }
+}
+
+@media (max-width: 430px) {
+  body {
+    padding: 8px;
+  }
+
+  .title {
+    font-size: 38px;
+  }
+
+  .score-box {
+    padding: 4px 12px;
+    min-width: 60px;
+  }
+
+  .score-value {
+    font-size: 17px;
+  }
+
+  .bottom-btn {
+    padding: 11px 6px;
+    font-size: 12px;
+  }
+}
+
+@media (max-width: 374px) {
+  body {
+    padding: 6px;
+  }
+
+  .title {
+    font-size: 32px;
+  }
+
+  .score-box {
+    padding: 3px 10px;
+    min-width: 52px;
+  }
+
+  .score-value {
+    font-size: 15px;
+  }
+
+  .score-label {
+    font-size: 9px;
+  }
+
+  .game-btn {
+    padding: 6px 10px;
+    font-size: 12px;
+  }
+
+  .game-over-content h2 {
+    font-size: 28px;
+  }
+
+  .bottom-btn {
+    padding: 10px 4px;
+    font-size: 11px;
+  }
+}
