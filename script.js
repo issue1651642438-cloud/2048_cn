@@ -22,11 +22,39 @@ const shareBtn         = $('share-btn');
 const toastEl          = $('toast');
 
 // =========================================================
-// 2. iOS / 移动端视口高度适配
+// 2. iOS / 移动端视口高度适配 + 动态控制游戏容器大小
 // =========================================================
 function fixMobileViewport() {
   const vh = window.innerHeight * 0.01;
   document.documentElement.style.setProperty('--vh', `${vh}px`);
+
+  // 在手机上限制游戏网格最大高度，留出底部版权信息空间
+  if (window.innerWidth <= 520) {
+    const container = document.querySelector('.container');
+    const footer = document.querySelector('.game-footer');
+    if (container && footer) {
+      const heading = document.querySelector('.heading');
+      const subheading = document.querySelector('.subheading');
+      const instructions = document.querySelector('.game-instructions');
+      const bottomBar = document.querySelector('.bottom-bar');
+
+      let otherHeight = 0;
+      if (heading) otherHeight += heading.offsetHeight + 12;
+      if (subheading) otherHeight += subheading.offsetHeight + 10;
+      if (instructions) otherHeight += instructions.offsetHeight + 12;
+      if (bottomBar) otherHeight += bottomBar.offsetHeight + 12;
+      otherHeight += footer.offsetHeight + 20;
+
+      const availHeight = window.innerHeight - otherHeight - 30;
+      const availWidth = window.innerWidth - 20;
+      const gameContainer = document.querySelector('.game-container');
+      if (gameContainer) {
+        const maxSize = Math.min(availWidth, availHeight, 500);
+        gameContainer.style.maxWidth = maxSize + 'px';
+        gameContainer.style.maxHeight = maxSize + 'px';
+      }
+    }
+  }
 }
 fixMobileViewport();
 window.addEventListener('resize', fixMobileViewport);
