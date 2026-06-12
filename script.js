@@ -486,21 +486,33 @@ document.addEventListener('keydown', e => {
 // 10. 移动端触控
 // =========================================================
 let touchStartX = 0, touchStartY = 0;
+let touchLastX = 0, touchLastY = 0;
+let touchMoved = false;
+
 gameContainer.addEventListener('touchstart', e => {
   const t = e.touches[0];
   touchStartX = t.clientX;
   touchStartY = t.clientY;
+  touchLastX = t.clientX;
+  touchLastY = t.clientY;
+  touchMoved = false;
 }, { passive: true });
 
 gameContainer.addEventListener('touchmove', e => {
+  const t = e.touches[0];
+  touchLastX = t.clientX;
+  touchLastY = t.clientY;
+  touchMoved = true;
   e.preventDefault();
 }, { passive: false });
 
 gameContainer.addEventListener('touchend', e => {
+  if (!touchMoved) return;
+
   const t  = e.changedTouches[0];
   const dx = t.clientX - touchStartX;
   const dy = t.clientY - touchStartY;
-  if (Math.max(Math.abs(dx), Math.abs(dy)) < 20) return;
+  if (Math.max(Math.abs(dx), Math.abs(dy)) < 30) return;
 
   let dir;
   if (Math.abs(dx) > Math.abs(dy)) {
