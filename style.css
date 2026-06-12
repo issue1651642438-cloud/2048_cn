@@ -7,21 +7,25 @@
   padding: 0;
 }
 
-html, body {
+html {
   height: 100%;
-  overflow: hidden;
-  overscroll-behavior: none;
+}
+
+@media (min-width: 521px) {
+  html {
+    overflow: hidden;
+  }
 }
 
 body {
+  height: 100%;
+  overflow: hidden;
   font-family: 'Segoe UI', 'Clear Sans', 'Helvetica Neue', Arial, sans-serif;
   background: #faf8ef;
   color: #776e65;
   display: flex;
   justify-content: center;
   align-items: center;
-  min-height: 100vh;
-  min-height: 100dvh;
   margin: 0;
   padding: 20px;
   -webkit-text-size-adjust: 100%;
@@ -395,13 +399,12 @@ body {
 
 /* 手机横屏 / 大屏手机 */
 @media (max-width: 520px) {
-  html, body {
-    overflow: hidden auto;  /* 允许垂直滚动 */
-  }
-
   body {
+    overflow-y: auto;
+    overflow-x: hidden;
+    -webkit-overflow-scrolling: touch;
     padding: 10px;
-    align-items: flex-start;  /* 从顶部排列，不居中 */
+    align-items: flex-start;
     padding-top: 12px;
   }
 
