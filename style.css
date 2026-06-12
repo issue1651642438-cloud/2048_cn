@@ -19,6 +19,7 @@ html {
 
 body {
   height: 100%;
+  overflow: hidden;
   font-family: 'Segoe UI', 'Clear Sans', 'Helvetica Neue', Arial, sans-serif;
   background: #faf8ef;
   color: #776e65;
@@ -398,86 +399,58 @@ body {
 
 /* 手机横屏 / 大屏手机 */
 @media (max-width: 520px) {
-  html, body {
-    overflow: auto;
-  }
-
   body {
+    overflow-y: auto;
+    overflow-x: hidden;
+    -webkit-overflow-scrolling: touch;
     padding: 10px;
     align-items: flex-start;
     padding-top: 12px;
   }
 
-  .heading {
-    margin-bottom: 6px;
-  }
-
   .title {
-    font-size: 40px;
-  }
-
-  .scores-container {
-    gap: 4px;
+    font-size: 44px;
   }
 
   .score-box {
-    padding: 4px 12px;
-    min-width: 56px;
+    padding: 6px 16px;
+    min-width: 68px;
   }
 
   .score-value {
-    font-size: 17px;
+    font-size: 19px;
   }
 
   .score-label {
     font-size: 10px;
   }
 
-  .subheading {
-    margin-bottom: 6px;
-  }
-
-  .controls {
-    gap: 4px;
-  }
-
   .game-btn {
-    padding: 6px 12px;
-    font-size: 12px;
-  }
-
-  .game-container {
-    max-width: 340px;
-    max-height: 340px;
-  }
-
-  .game-over-content h2 {
-    font-size: 30px;
-  }
-
-  .game-btn.large {
-    padding: 8px 24px;
+    padding: 7px 14px;
     font-size: 13px;
   }
 
+  .game-over-content h2 {
+    font-size: 36px;
+  }
+
+  .game-btn.large {
+    padding: 10px 30px;
+    font-size: 14px;
+  }
+
   .game-instructions {
-    font-size: 11px;
-    margin-top: 6px;
-  }
-
-  .bottom-bar {
-    margin-top: 6px;
-    gap: 6px;
-  }
-
-  .bottom-btn {
-    padding: 8px 6px;
     font-size: 12px;
   }
 
+  .bottom-btn {
+    padding: 12px 8px;
+    font-size: 13px;
+  }
+
   .game-footer {
-    margin-top: 12px;
-    padding-bottom: 10px;
+    margin-top: 28px;
+    padding-bottom: 12px;
   }
 }
 
@@ -488,26 +461,26 @@ body {
   }
 
   .title {
-    font-size: 36px;
+    font-size: 38px;
   }
 
   .score-box {
-    padding: 3px 10px;
-    min-width: 50px;
+    padding: 4px 12px;
+    min-width: 60px;
   }
 
   .score-value {
-    font-size: 16px;
-  }
-
-  .game-container {
-    max-width: 290px;
-    max-height: 290px;
+    font-size: 17px;
   }
 
   .bottom-btn {
-    padding: 8px 6px;
-    font-size: 11px;
+    padding: 11px 6px;
+    font-size: 12px;
+  }
+
+  .game-footer {
+    margin-top: 20px;
+    padding-bottom: 10px;
   }
 }
 
@@ -518,47 +491,38 @@ body {
   }
 
   .title {
-    font-size: 30px;
+    font-size: 32px;
   }
 
   .score-box {
-    padding: 2px 8px;
-    min-width: 44px;
+    padding: 3px 10px;
+    min-width: 52px;
   }
 
   .score-value {
-    font-size: 14px;
+    font-size: 15px;
   }
 
   .score-label {
     font-size: 9px;
   }
 
-  .game-container {
-    max-width: 250px;
-    max-height: 250px;
-  }
-
   .game-btn {
-    padding: 5px 10px;
-    font-size: 11px;
-  }
-
-  .game-over-content h2 {
-    font-size: 24px;
-  }
-
-  .game-btn.large {
-    padding: 8px 20px;
+    padding: 6px 10px;
     font-size: 12px;
   }
 
-  .game-instructions {
-    font-size: 10px;
+  .game-over-content h2 {
+    font-size: 28px;
   }
 
   .bottom-btn {
-    padding: 6px 4px;
-    font-size: 10px;
+    padding: 10px 4px;
+    font-size: 11px;
+  }
+
+  .game-footer {
+    margin-top: 16px;
+    padding-bottom: 8px;
   }
 }
